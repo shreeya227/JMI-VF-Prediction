@@ -18,7 +18,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import torchvision.transforms.functional as TF
 
 
-from src.data_handler import Harvard_DR_Fairness
+from src.data_handler import Harvard_GF
 from src import logger
 
 
@@ -362,7 +362,7 @@ def main():
     )
 
     # Datasets
-    train_ds = Harvard_DR_Fairness(
+    train_ds = Harvard_GF(
         data_path=os.path.join(args.data_dir, "train"),
         subset="train",
         modality_type=args.modality_type,
@@ -374,7 +374,7 @@ def main():
         transform=train_transform,
     )
 
-    test_ds = Harvard_DR_Fairness(
+    test_ds = Harvard_GF(
         data_path=os.path.join(args.data_dir, "test"),
         subset="test",
         modality_type=args.modality_type,
