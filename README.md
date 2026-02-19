@@ -1,4 +1,4 @@
-# JMI-VF-Prediction
+#Fairness Aware deep learning approach for visual loss prediction using optical coherence tomography
 ## Environment Setup
 
 Python 3.10
