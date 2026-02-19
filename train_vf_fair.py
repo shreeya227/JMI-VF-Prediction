@@ -54,7 +54,6 @@ class Random3DOctAugmentation:
       - translation: up to translate_range * (H/W)
       - intensity scaling: 1 +/- intensity_range
       - gaussian noise: N(0, noise_std)
-    Input expected: Tensor/array shaped [S, H, W] or [C, H, W]
     """
     def __init__(
         self,
@@ -178,8 +177,7 @@ def aff_update_from_train_epoch(
     min_group_n: int = 10,
 ):
     """
-    AFF update based ONLY on training-set predictions (prevents test leakage).
-    Updates optimizer param groups that have `group_id` (0..G-1).
+    AFF update based ONLY on training-set predictions
     """
     gids = train_attrs[:, attr_col].astype(int)
 
