@@ -539,9 +539,9 @@ def main():
     print(f"Train/validation data directory: {train_data_dir}")
     print(f"Test data directory: {test_data_dir}")
 
-    # ------------------------------------------------------------
+
     # Patient-level train/validation split
-    # ------------------------------------------------------------
+
     if args.split_json is None:
         split_json = os.path.join(
             args.result_dir,
@@ -568,9 +568,9 @@ def main():
     train_files = split["train_files"]
     val_files = split["val_files"]
 
-    # ------------------------------------------------------------
+   
     # Datasets/loaders
-    # ------------------------------------------------------------
+   
     train_dataset = Harvard_GF(
         train_data_dir,
         modality_type=args.modality_types,
@@ -635,9 +635,9 @@ def main():
     print(f"Final validation samples: {len(val_dataset)}")
     print(f"Final test samples: {len(test_dataset)}")
 
-    # ------------------------------------------------------------
+   
     # Model/optimizer/loss
-    # ------------------------------------------------------------
+   
     model = build_model(args, device)
     criterion = nn.MSELoss(reduction="none")
 
@@ -655,9 +655,8 @@ def main():
             weight_decay=args.weight_decay,
         )
 
-    # ------------------------------------------------------------
     # Training
-    # ------------------------------------------------------------
+    
     best_val_mae = float("inf")
     best_epoch = -1
     bad_epochs = 0
@@ -758,9 +757,9 @@ def main():
     with open(os.path.join(args.result_dir, "training_history.json"), "w") as f:
         json.dump(history, f, indent=2)
 
-    # ------------------------------------------------------------
+  
     # Final test evaluation using validation-selected checkpoint
-    # ------------------------------------------------------------
+    
     print("\n================ Final TEST evaluation ================")
     ckpt = load_best_checkpoint(model, best_ckpt_path, device)
     best_epoch = ckpt.get("epoch", best_epoch)
@@ -805,7 +804,7 @@ def main():
             f"95% CI=[{v['ci_low']:.4f}, {v['ci_high']:.4f}]"
         )
 
-    print("\n✅ Training and final test evaluation complete.")
+    print("\n Training and final test evaluation complete.")
 
 
 if __name__ == "__main__":
