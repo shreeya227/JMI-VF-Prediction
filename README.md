@@ -1,4 +1,4 @@
-# Fairness-aware deep learning for predicting visual field loss from optical coherence tomography<img width="468" height="13" alt="image" src="https://github.com/user-attachments/assets/dde9e469-c8c5-49c2-a028-6574310bfcdb" />
+# Fairness-aware deep learning for predicting visual field loss from optical coherence tomography
 
 
 This repository contains the code used for the manuscript:
