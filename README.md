@@ -1,24 +1,35 @@
-# Fairness Aware deep learning approach for visual loss prediction using optical coherence tomography
-### Environment Setup
+# Fairness-aware deep learning for predicting visual field loss from optical coherence tomography<img width="468" height="13" alt="image" src="https://github.com/user-attachments/assets/dde9e469-c8c5-49c2-a028-6574310bfcdb" />
 
-Python 3.10
-PyTorch 2.x
-CUDA 11.x
 
-### Each .npz file must contain:
-'oct_bscans'  → 3D volume (200 × 200 × 200)
-'tds'         → 52-dim visual field vector
-'race'        → categorical label
-'hispanic'    → categorical label
+This repository contains the code used for the manuscript:
 
-The model consists of:
+**Fairness-aware deep learning for predicting visual field loss from optical coherence tomography**  
+Journal of Medical Imaging submission: **JMI-260093**
 
-A 3D ResNet-18 backbone for volumetric feature extraction
+The project implements a fairness-aware volumetric deep learning framework for predicting 52-point Humphrey 24-2 visual field total deviation values from optical coherence tomography (OCT) B-scan volumes. The framework combines 3D OCT feature learning, demographic embedding, subgroup-specific calibration, and Adaptive Fairness Feedback (AFF).
 
-Channel-wise attention on pooled features
+## Repository Status
 
-MLP-based demographic embedding
+This repository corresponds to the revised JMI submission after major revision.
 
-Group-specific calibration layers
+The revised experiments use:
 
-A shared regression head for 52-point TD prediction
+- Patient-level train, validation, and test splitting
+- Internal validation-based checkpoint selection
+- Held-out test evaluation only after final model selection
+- Ablation experiments comparing:
+  - 3D ResNet without demographic embedding or AFF
+  - 3D ResNet with demographic embedding only
+  - 3D ResNet with demographic embedding and AFF
+
+## Repository Structure
+
+```text
+JMI-VF-Prediction/
+├── README.md
+├── src/
+│   ├── __init__.py
+│   ├── data_handler.py
+│   └── model.py
+└── scripts/
+    └── train_vf_fair.py
