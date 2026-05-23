@@ -177,7 +177,7 @@ class ResNet3D_Baseline(nn.Module):
     """
     Baseline 3D ResNet for 52-point TDS regression.
 
-    Severity removed.
+    
     Demographic attributes are not used.
 
     Forward:
@@ -247,7 +247,7 @@ class FairResNet3D_R18_Attn(nn.Module):
     """
     Fairness-aware 3D ResNet with demographic embedding and group-specific calibration.
 
-    Severity removed.
+   
 
     Forward:
         pred = model(x, attr)
