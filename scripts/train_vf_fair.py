@@ -133,7 +133,6 @@ if __name__ == "__main__":
     if args.ablation == "baseline":
         model = ResNet3D_Baseline(
             in_channels=1, out_dim=out_dim,
-            num_severity=3, severity_emb_dim=64,
             pretrained_backbone=False,  # no pretrain needed for inference
         )
         optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr_best)
@@ -142,7 +141,6 @@ if __name__ == "__main__":
         model = FairResNet3D_R18_Attn(
             in_channels=1, out_dim=out_dim,
             num_groups=num_groups, attr_emb_dim=128,
-            num_severity=3, severity_emb_dim=64,
             pretrained_backbone=False,
         )
         param_groups = build_param_groups_for_fair3d(model, base_lr=args.lr_best)
@@ -162,22 +160,20 @@ if __name__ == "__main__":
     preds, gts, attrs, mds, severities = [], [], [], [], []
 
     with torch.no_grad():
-        for input, target, attr, md, severity in test_dataset_loader:
+        for input, target, attr in test_dataset_loader:
             input = input.to(device)
             target = target.to(device)
-            severity = severity.long().to(device)
 
             if attr.dim() == 1:
                 attr = attr.unsqueeze(1)
             attr = attr.float().to(device)
 
-            pred = model(input, attr[:, 0].long(), severity)
+            pred = model(input, attr[:, 0].long())
 
             preds.append(pred.cpu().numpy())
             gts.append(target.cpu().numpy())
             attrs.append(attr.cpu().numpy())
             mds.append(md.numpy())
-            severities.append(severity.cpu().numpy())
 
     preds = np.concatenate(preds, axis=0)
     gts = np.concatenate(gts, axis=0)
