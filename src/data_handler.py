@@ -31,8 +31,6 @@ try:
 except Exception as exc:
     raise ImportError(
         "Could not import FairResNet3D_R18_Attn and ResNet3D_Baseline from src.model. "
-        "Make sure src/model.py exists and the models have severity removed from their "
-        "constructors and forward() functions."
     ) from exc
 
 try:
@@ -119,7 +117,6 @@ def build_model(args, device):
         )
     else:
         # demographic_only and full use demographic attribute.
-        # Severity has been removed.
         model = FairResNet3D_R18_Attn(
             in_channels=1,
             out_dim=out_dim,
@@ -132,9 +129,7 @@ def build_model(args, device):
 
 
 def call_model(model, x, attr, ablation: str):
-    """
-    Central model-call helper so severity is never used.
-    """
+   
     if ablation == "baseline":
         return model(x)
     return model(x, attr.long())
@@ -462,7 +457,7 @@ def resolve_test_dir(args):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Harvard-GF 3D ResNet training without severity")
+    parser = argparse.ArgumentParser(description="Harvard-GF 3D ResNet training")
 
     # Paths
     parser.add_argument("--data_dir", default="/medailab/medailab/shilab/Harvard-GF", type=str)
